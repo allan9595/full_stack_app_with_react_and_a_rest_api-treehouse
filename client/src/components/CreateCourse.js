@@ -1,27 +1,48 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Header from './Header';
 
 class CreateCourse extends Component {
 
     state = {
+        title: "",
+        description: "",
+        estimatedTime: "",
+        materialsNeeded: ""
+    }
+
+    //submit the form to create a course
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const { title , description, estimatedTime, materialsNeeded } = this.state;
+        axios.post('http://localhost:5000/api/courses', {title, description, estimatedTime, materialsNeeded})
+            .then(() => {
+                this.props.history.push('/') //redirect back to the main courses page
+            })
+            .catch((e) => {
+                console.log(e);
+            })
 
     }
 
-    handleSubmit(){
+    handleChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        })
+    }
 
+    handleCancel = () => {
+        this.props.history.push('/')
     }
 
     render() {
         return (
             <div>
                 <div>
-                <div class="header">
-                    <div className="bounds">
-                    <h1 className="header--logo">Courses</h1>
-                    <nav><span>Welcome Joe Smith!</span><a className="signout" href="index.html">Sign Out</a></nav>
-                    </div>
-                </div>
-                <hr />
+                <Header />
                 <div className="bounds course--detail">
                     <h1>Create Course</h1>
                     <div>
@@ -45,7 +66,8 @@ class CreateCourse extends Component {
                                                 type="text" 
                                                 className="input-title course--title--input" 
                                                 placeholder="Course title..."
-                                                value="" 
+                                                value={this.state.title}
+                                                onChange={this.handleChange} 
                                             />
                                         </div>
                                         <p>By Joe Smith</p>
@@ -57,6 +79,8 @@ class CreateCourse extends Component {
                                                 name="description" 
                                                 className="" 
                                                 placeholder="Course description..."
+                                                value={this.state.description}
+                                                onChange={this.handleChange}
                                             >
                                             </textarea>
                                         </div>
@@ -74,7 +98,8 @@ class CreateCourse extends Component {
                                                     type="text" 
                                                     className="course--time--input"
                                                     placeholder="Hours" 
-                                                    value="" 
+                                                    value={this.state.estimatedTime}
+                                                    onChange={this.handleChange}
                                                 />
                                                 </div>
                                         </li>
@@ -86,6 +111,8 @@ class CreateCourse extends Component {
                                                     name="materialsNeeded" 
                                                     className="" 
                                                     placeholder="List materials..."
+                                                    value={this.state.materialsNeeded}
+                                                    onChange={this.handleChange}
                                                 >
                                                 </textarea>
                                             </div>
@@ -97,12 +124,13 @@ class CreateCourse extends Component {
                                     <button 
                                         className="button" 
                                         type="submit"
+                                        onClick={this.handleSubmit}
                                     >
                                         Create Course
                                     </button>
                                     <button 
                                         className="button button-secondary" 
-                                        onclick="event.preventDefault(); location.href='index.html';"
+                                        onClick={this.handleCancel}
                                     >
                                     Cancel
                                     </button>

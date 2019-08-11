@@ -7,16 +7,18 @@ class CourseDetail extends Component {
     }
 
     componentDidMount(){
+        
         const id = this.props.match.params.id;
-        axios.get(`http://localhost:5000/api/courses/${id}`)
-            .then((course) => {
-                this.setState({
-                    course: course.data
-                })
-                console.log(course.data.User.firstName)
-            }).catch((e) => {
-                console.log(e)
-        })
+        if(id !== 'create'){
+            axios.get(`http://localhost:5000/api/courses/${id}`)
+                .then((course) => {
+                    this.setState({
+                        course: course.data
+                    })
+                }).catch((e) => {
+                    console.log(e)
+            })
+        }
     }
 
     render(){
