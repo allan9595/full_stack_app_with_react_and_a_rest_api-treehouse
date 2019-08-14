@@ -6,16 +6,15 @@ const Header = () => {
         <div className="header">
             <div className="bounds">
             <h1 className="header--logo">Courses</h1>
-                <NavLink to="/" className="signout">
-                    <nav>
-                        <span>
-                            Welcome Joe Smith!
-                        </span>
-                        <a>
-                            Sign Out
-                        </a>
-                    </nav>
-                </NavLink>
+            
+            <NavLink to="/" className="signout ">        
+                <nav><span className="a1">Sign Out</span></nav>                
+            </NavLink>
+            <nav>
+                <span>
+                    Welcome Joe Smith!
+                </span>
+            </nav>
             </div>
       </div>
     )

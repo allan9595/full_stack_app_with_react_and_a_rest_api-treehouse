@@ -5,6 +5,11 @@ import Course from './components/Courses'
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UserSignUp from './components/UserSignUp';
+import UserSignIn from './components/UserSignIn';
+
+//import context 
+import withContext from './Context';
+
 
 const App = () => {
 
@@ -14,6 +19,7 @@ const App = () => {
       <Route exact path="/courses/create" component={CreateCourse} />
       <Route path="/courses/:id" component={CourseDetail} />
       <Route path="/signup" component={UserSignUp} />
+      <Route path="/signin" component={UserSignIn} />
     </Router>
   );
 }
