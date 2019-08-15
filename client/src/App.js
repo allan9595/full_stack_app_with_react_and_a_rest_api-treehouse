@@ -10,6 +10,7 @@ import UserSignIn from './components/UserSignIn';
 //import context 
 import withContext from './Context';
 
+const UserSignInWithContext = withContext(UserSignIn);
 
 const App = () => {
 
@@ -19,7 +20,7 @@ const App = () => {
       <Route exact path="/courses/create" component={CreateCourse} />
       <Route path="/courses/:id" component={CourseDetail} />
       <Route path="/signup" component={UserSignUp} />
-      <Route path="/signin" component={UserSignIn} />
+      <Route path="/signin" component={UserSignInWithContext} />
     </Router>
   );
 }
