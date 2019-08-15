@@ -35,6 +35,10 @@ export class Provider extends Component {
                 "Content-Type": "application/json; charset=utf-8"
             }
         })
+        this.setState({
+            authUser: user.data
+        })
+        Cookies.set("authUser", JSON.stringify(user.data), { expires: 1 });
         return user;
     }
 

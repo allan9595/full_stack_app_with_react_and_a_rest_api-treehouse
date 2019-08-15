@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Cookies from 'js-cookie'; 
+import {Link} from 'react-router-dom';
 class UserSignIn extends Component {
 
     state = {
@@ -25,8 +25,7 @@ class UserSignIn extends Component {
             this.state.password
         ).then((user) => {
             if(user.status === 200){
-                context.authUser = user.data;
-                Cookies.set("authUser", JSON.stringify(user.data), { expires: 1 });
+                this.props.history.push('/courses/create');
             }
         }).catch((e) => {
             console.log("login unsuccessful")
@@ -88,7 +87,15 @@ class UserSignIn extends Component {
                         </form>
                     </div>
                     <p>&nbsp;</p>
-                    <p>Don't have a user account? <a href="sign-up.html">Click here</a> to sign up!</p>
+                    <p>Don't have a user account? 
+                        Click 
+                        &nbsp;
+                    <Link to="/signup" className="a1">
+                        here 
+                    </Link>
+                        &nbsp;
+                        to sign in!
+                    </p>
                     </div>
                 </div>
             </div>
