@@ -8,6 +8,7 @@ import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import Header from './components/Header';
+import UpdateCourse from './components/UpdateCourse';
 //import context 
 import withContext from './Context';
 import PrivateRoute from './components/PrivateRoute';
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/signout" component={UserSignOutWithConext} />
         <PrivateRoute exact path="/courses/create" component={CreateCourse} />
         <Route exact path= "/courses/:id" component={CourseDetail} />
+        <Route path="/courses/:id/update" component={UpdateCourse} />
       </Switch>
     </Router>
   );
