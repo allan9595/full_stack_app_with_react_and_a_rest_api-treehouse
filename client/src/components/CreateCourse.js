@@ -42,7 +42,6 @@ class CreateCourse extends Component {
         return (
             <div>
                 <div>
-                <Header />
                 <div className="bounds course--detail">
                     <h1>Create Course</h1>
                     <div>
