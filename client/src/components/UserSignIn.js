@@ -4,7 +4,8 @@ class UserSignIn extends Component {
 
     state = {
         emailAddress: "",
-        password: ""
+        password: "",
+        errors: ""
     }
 
     handleChange = (event) => {
@@ -28,7 +29,9 @@ class UserSignIn extends Component {
                 this.props.history.push('/courses/create');
             }
         }).catch((e) => {
-            console.log("login unsuccessful")
+            this.setState({
+                errors: e.response.data.message //catch the err in the response object
+            })
         });
 
     }
@@ -44,6 +47,20 @@ class UserSignIn extends Component {
                 <hr />
                 <div className="bounds">
                     <div className="grid-33 centered signin">
+                    {
+                        this.state.errors ? (
+                            <div>
+                                <h2 className="validation--errors--label">Validation errors</h2>
+                                    <div className="validation-errors">
+                                        <ul>
+                                            {
+                                                <li>{this.state.errors}</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                        ) :  null
+                    }
                     <h1>Sign In</h1>
                     <div>
                         <form>

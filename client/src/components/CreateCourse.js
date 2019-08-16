@@ -8,19 +8,31 @@ class CreateCourse extends Component {
         title: "",
         description: "",
         estimatedTime: "",
-        materialsNeeded: ""
+        materialsNeeded: "",
+        errors:""
     }
 
     //submit the form to create a course
     handleSubmit = (e) => {
         e.preventDefault();
-        const { title , description, estimatedTime, materialsNeeded } = this.state;
-        axios.post('http://localhost:5000/api/courses', {title, description, estimatedTime, materialsNeeded})
+        const { title , description, estimatedTime, materialsNeeded} = this.state;
+        const context = this.props.context;
+
+        const axiosInstance = axios.create({
+            baseURL:`http://localhost:5000`,
+            headers: {
+                "Authorization": `Basic ${context.encodedCredentials}`,
+                "Content-Type": "application/json"
+            }
+        });
+        axiosInstance.post('/api/courses', {title, description, estimatedTime, materialsNeeded})
             .then(() => {
                 this.props.history.push('/') //redirect back to the main courses page
             })
             .catch((e) => {
-                console.log(e);
+                this.setState({
+                    errors: e.response.data.errors //catch the err in the response object
+                })
             })
 
     }
@@ -45,15 +57,23 @@ class CreateCourse extends Component {
                 <div className="bounds course--detail">
                     <h1>Create Course</h1>
                     <div>
-                        <div>
-                            <h2 className="validation--errors--label">Validation errors</h2>
-                            <div className="validation-errors">
-                            <ul>
-                                <li>Please provide a value for "Title"</li>
-                                <li>Please provide a value for "Description"</li>
-                            </ul>
-                            </div>
-                        </div>
+                            {
+                                this.state.errors ? (
+                                    <div>
+                                        <h2 className="validation--errors--label">Validation errors</h2>
+                                        <div className="validation-errors">
+                                            <ul>
+                                                {
+                                                    this.state.errors.map((error) => {
+                                                        return <li key={error}>{error}</li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                ) :  null
+                            }
+                           
                             <form>
                                 <div className="grid-66">
                                     <div className="course--header">

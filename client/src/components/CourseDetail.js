@@ -23,34 +23,61 @@ class CourseDetail extends Component {
     }
 
     deleteCourse = () => {
+        const id = this.props.match.params.id;
+        const context = this.props.context;
 
+        const axiosInstance = axios.create({
+            baseURL:`http://localhost:5000`,
+            headers: {
+                "Authorization": `Basic ${context.encodedCredentials}`,
+                "Content-Type": "application/json"
+            }
+        });
+        axiosInstance.delete(`/api/courses/${id}`)
+            .then(() => {
+                this.props.history.push('/')
+            })
+            .catch((e) => {
+                console.log(e);
+        })
     }
     render(){
         if (!this.state.course.User) {
             return null;
         } //if the data hasn't been async into state yet, return null to prevent error throwing
         const id = this.props.match.params.id;
+        const context = this.props.context;
         return(
         
         <div className="bounds course--detail">
             <div className="grid-66">
                 <div className="course--header">
-                <div className="actions--bar">
-                    <div className="bounds">
-                        <div className="grid-100">
-                            <span>
-                                <Link to={`/courses/${id}/update`} className="button a1" >
-                                    Update Course
-                                </Link>
-                                
-                                {this.deleteCourse()}
-                                <Link to={`/`} className="button button-secondary a1" >
-                                    Return to List
-                                </Link>
-                            </span>
-                        </div>
-                        </div>
-                    </div>
+                {(context.authUser 
+                && 
+                (context.authUser.id === this.state.course.User.id)) ? (
+                     <div className="actions--bar">
+                     <div className="bounds">
+                         <div className="grid-100">
+                             <span>
+                                 <Link to={`/courses/${id}/update`} className="button a1" >
+                                     Update Course
+                                 </Link>
+                                 
+                                 <button 
+                                     className="button" 
+                                     onClick={this.deleteCourse}
+                                 >
+                                     Delete Course
+                                 </button>
+                                 <Link to={`/`} className="button button-secondary a1" >
+                                     Return to List
+                                 </Link>
+                             </span>
+                         </div>
+                         </div>
+                     </div>
+                ): null}
+               
                     <h4 className="course--label">Course</h4>
                     <h3 className="course--title">{this.state.course.title}</h3>
                     <p>By {this.state.course.User.firstName} {this.state.course.User.lastName}</p>

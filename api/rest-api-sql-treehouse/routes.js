@@ -19,7 +19,7 @@ const authUser = (req, res, next) => {
             }
         ).then((user) => {
            if(!user){
-            res.status(404).json({message: `${credentials.name} not found! ` })
+            res.status(404).json({message: `Incorrect Username or Password ` })
            }else{
             bcrypt.compare(credentials.pass, user.password, (err,respond) => {
                 if(respond){
@@ -28,29 +28,49 @@ const authUser = (req, res, next) => {
                 }
                 //if false, throw access denied message back
                 if(!respond){ 
-                    res.status(401).json({ message: 'Access Denied' }).end();
+                    res.status(401).json({ message: 'Incorrect Username or Password' }).end();
                 }
             })
            }           
         })
     }else{
-        res.status(401).json({ message: 'Access Denied' }).end();
+        res.status(401).json({ message: 'Incorrect Username or Password' }).end();
     }
 }
 //Create user
 router.post('/users',[
     check('firstName')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "firstName"'),
     check('lastName')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "lastName"'),
      check('emailAddress')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .isEmail()
         .withMessage('Invalid "emailAddress"'),
     check('password')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "password"')
 ],(req, res, next) => {
     const errors = validationResult(req);
@@ -97,6 +117,7 @@ router.post('/users',[
 router.get('/users',authUser ,(req, res, next) => {
     const user = req.currentUser;
     res.json({
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         emailAddress: user.emailAddress
@@ -106,10 +127,18 @@ router.get('/users',authUser ,(req, res, next) => {
 //POST course 
 router.post('/courses', authUser, [
     check('title')
-        .exists()
+        .exists({
+            checkFalsy: true,
+            checkNull: true
+        })
         .withMessage('Please provide a value for "title"'),
     check('description')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "description"'),
      
 ] ,(req, res, next) => {
@@ -142,6 +171,7 @@ router.post('/courses', authUser, [
 router.get('/courses', (req, res, next) => {
     Course.findAll({
         attributes:[
+            "id",
             "title",
             "description",
             "estimatedTime",
@@ -209,10 +239,20 @@ router.get('/courses/:id',(req, res, next) => {
 //PUT /course/:id
 router.put('/courses/:id', authUser, [
     check('title')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "title"'),
     check('description')
-        .exists()
+        .exists(
+            {
+                checkFalsy: true,
+                checkNull: true
+            }
+        )
         .withMessage('Please provide a value for "description"'),
      
 ], (req, res, next) => {

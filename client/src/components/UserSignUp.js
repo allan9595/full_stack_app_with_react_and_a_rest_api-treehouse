@@ -9,7 +9,8 @@ class UserSignUp extends Component {
       lastName: "",
       emailAddress: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      errors:""
     }
 
     handleChange = (event) => {
@@ -38,7 +39,9 @@ class UserSignUp extends Component {
         .then(() => {
           console.log('user created success')
         }).catch((e) => {
-          console.log(e)
+          this.setState({
+            errors: e.response.data.errors //catch the err in the response object
+          })
         })
     }
 
@@ -46,6 +49,22 @@ class UserSignUp extends Component {
         return (
           <div className="bounds">
             <div className="grid-33 centered signin">
+              {
+                this.state.errors ? (
+                  <div>
+                      <h2 className="validation--errors--label">Validation errors</h2>
+                          <div className="validation-errors">
+                              <ul>
+                                  {
+                                      this.state.errors.map((error) => {
+                                          return <li key={error}>{error}</li>
+                                      })
+                                  }
+                              </ul>
+                          </div>
+                      </div>
+                  ) :  null                          
+              }
               <h1>Sign Up</h1>
               <div>
                 <form>

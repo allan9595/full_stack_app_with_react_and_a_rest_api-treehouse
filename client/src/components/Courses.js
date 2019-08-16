@@ -26,7 +26,7 @@ class Course extends Component {
                 <div key={course.title} className="bounds">
                     <div className="grid-33">
                     <NavLink 
-                        to={`/courses/${index+1}`}
+                        to={`/courses/${course.id}`}
                         className="course--module course--link"
                     >
                         <h4 className="course--label">Course</h4>
