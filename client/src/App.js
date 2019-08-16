@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Course from './components/Courses'
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
@@ -15,6 +15,8 @@ import PrivateRoute from './components/PrivateRoute';
 const UserSignInWithContext = withContext(UserSignIn);
 const HeaderContext = withContext(Header);
 const UserSignOutWithConext = withContext(UserSignOut);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+
 const App = () => {
 
   return (
@@ -27,7 +29,7 @@ const App = () => {
         <Route path="/signout" component={UserSignOutWithConext} />
         <PrivateRoute exact path="/courses/create" component={CreateCourse} />
         <Route exact path= "/courses/:id" component={CourseDetail} />
-        <Route path="/courses/:id/update" component={UpdateCourse} />
+        <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
       </Switch>
     </Router>
   );

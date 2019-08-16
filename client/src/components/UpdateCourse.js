@@ -29,10 +29,26 @@ class UpdateCourse extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const id = this.props.match.params.id;
+        const context = this.props.context;
         const { title , description, estimatedTime, materialsNeeded } = this.state;
-        axios.put(`http://localhost:5000/courses/${id}`, {title, description, estimatedTime, materialsNeeded})
+        const axiosInstance = axios.create({
+            baseURL:`http://localhost:5000`,
+            headers: {
+                "Authorization": `Basic ${context.encodedCredentials}`,
+                "Content-Type": "application/json"
+            }
+        });
+        console.log(context.encodedCredentials);
+        axiosInstance.put(`/api/courses/${id}`,
+        {
+            title, 
+            description, 
+            estimatedTime, 
+            materialsNeeded
+        }
+        )
             .then(() => {
-                this.props.history.push('/') //redirect back to the main courses page
+                this.props.history.push(`/courses/${id}`) //redirect back to the main courses page
             })
             .catch((e) => {
                 console.log(e);
@@ -139,7 +155,7 @@ class UpdateCourse extends Component {
                                         type="submit"
                                         onClick={this.handleSubmit}
                                     >
-                                        Create Course
+                                       Update Course
                                     </button>
                                     <button 
                                         className="button button-secondary" 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { Consumer } from '../Context';
+import { Link } from 'react-router-dom';
+
 
 const Header = ({context}) => {
     return(

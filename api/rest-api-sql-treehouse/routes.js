@@ -9,6 +9,7 @@ const auth = require('basic-auth');
 //auth middleware 
 const authUser = (req, res, next) => {
     const credentials = auth(req);
+    console.log(credentials);
     if(credentials){
         User.findOne(
             {

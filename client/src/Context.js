@@ -7,13 +7,16 @@ const Context = React.createContext(); //create context
 export class Provider extends Component {
 
     state = {
-        authUser: Cookies.getJSON('authUser') || "" //get the authenticatedUser if it exist 
+        authUser: Cookies.getJSON('authUser') || "", //get the authenticatedUser if it exist 
+        encodedCredentials: Cookies.getJSON('encodedCredentials') || ''
     }
 
     render() {
         const authUser = this.state.authUser;
+        const encodedCredentials = this.state.encodedCredentials;
         const value = {
             authUser,
+            encodedCredentials,
             actions: {
                 signIn: this.signIn,
                 signOut: this.signOut
@@ -36,17 +39,21 @@ export class Provider extends Component {
             }
         })
         this.setState({
-            authUser: user.data
+            authUser: user.data,
+            encodedCredentials: encodedCredentials
         })
         Cookies.set("authUser", JSON.stringify(user.data), { expires: 1 });
+        Cookies.set("encodedCredentials", JSON.stringify(encodedCredentials));
         return user;
     }
 
     signOut = () => {
         this.setState({
-            authUser: "" //reset the authUser
+            authUser: "", //reset the authUser
+            encodedCredentials: ""
         })
         Cookies.remove('authUser'); //remove the cookies
+        Cookies.remove('encodedCredentials');
     }
 }
 
