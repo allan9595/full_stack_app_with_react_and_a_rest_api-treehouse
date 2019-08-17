@@ -22,7 +22,10 @@ class UpdateCourse extends Component {
                         materialsNeeded:course.data.materialsNeeded
                     })
                 }).catch((e) => {
-                    console.log(e)
+                    
+                    if(e){
+                        this.props.history.push('/notfound') //if requested course not exist, redirect to notfound
+                    }
             })
         }
     }
@@ -55,8 +58,11 @@ class UpdateCourse extends Component {
                 this.setState({
                     errors: e.response.data.errors //catch the err in the response object
                 })
+                //if unaut, then forbidden to access the resources
+                if(e.response.status === 401){
+                    this.props.history.push('/forbidden')
+                }
             })
-
     }
 
     handleChange = (event) => {

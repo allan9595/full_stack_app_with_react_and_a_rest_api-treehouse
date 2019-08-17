@@ -51,6 +51,7 @@ class CreateCourse extends Component {
     }
 
     render() {
+        const context = this.props.context;
         return (
             <div>
                 <div>
@@ -89,7 +90,7 @@ class CreateCourse extends Component {
                                                 onChange={this.handleChange} 
                                             />
                                         </div>
-                                        <p>By Joe Smith</p>
+                                        <p>By {context.authUser.firstName} {context.authUser.lastName}</p>
                                     </div>
                                     <div className="course--description">
                                         <div>

@@ -9,15 +9,21 @@ import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import Header from './components/Header';
 import UpdateCourse from './components/UpdateCourse';
+import NotFound from './components/NotFound';
+import Forbidden from './components/Forbidden';
+import UnhandledError from './components/UnhandledError';
 //import context 
 import withContext from './Context';
 import PrivateRoute from './components/PrivateRoute';
+
 const UserSignInWithContext = withContext(UserSignIn);
 const HeaderContext = withContext(Header);
 const UserSignOutWithConext = withContext(UserSignOut);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const CourseDetailWithContext = withContext(CourseDetail);
-const CreateCourseWithContext = withContext(CreateCourse)
+const CreateCourseWithContext = withContext(CreateCourse);
+const UserSignUpWithContext = withContext(UserSignUp)
+
 const App = () => {
 
   return (
@@ -25,12 +31,16 @@ const App = () => {
       <HeaderContext />
       <Switch>
         <Route exact path="/" component={Course} />
-        <Route path="/signup" component={UserSignUp} />
-        <Route path="/signin" component={UserSignInWithContext} />
-        <Route path="/signout" component={UserSignOutWithConext} />
+        <Route exact path="/signup" component={UserSignUpWithContext} />
+        <Route exact path="/signin" component={UserSignInWithContext} />
+        <Route exact path="/signout" component={UserSignOutWithConext} />
         <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
         <Route exact path= "/courses/:id" component={CourseDetailWithContext} />
-        <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <Route path="/forbidden" component={Forbidden}/>
+        <Route path="/error" component={UnhandledError} />
+        <Route path="/notfound" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   );

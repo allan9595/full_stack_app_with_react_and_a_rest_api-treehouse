@@ -21,12 +21,13 @@ class UserSignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const context = this.props.context;
+        const { from } = this.props.location.state || { from: { pathname: '/courses/create' } };
         context.actions.signIn(
             this.state.emailAddress, 
             this.state.password
         ).then((user) => {
             if(user.status === 200){
-                this.props.history.push('/courses/create');
+                this.props.history.push(from);
             }
         }).catch((e) => {
             this.setState({

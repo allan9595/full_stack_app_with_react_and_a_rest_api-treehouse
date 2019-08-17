@@ -22,7 +22,7 @@ const Header = ({context}) => {
                             <span>
                             Welcome,
                             {context.authUser.firstName}
-
+                            &nbsp;
                             {context.authUser.lastName} !
                             </span>
                         </nav>

@@ -23,7 +23,7 @@ class Course extends Component {
     render(){
         const course = this.state.courses.map((course,index) => {
             return (
-                <div key={course.title} className="bounds">
+                <div key={course.id} className="bounds">
                     <div className="grid-33">
                     <NavLink 
                         to={`/courses/${course.id}`}

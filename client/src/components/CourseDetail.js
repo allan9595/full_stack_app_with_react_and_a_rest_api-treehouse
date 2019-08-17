@@ -1,6 +1,7 @@
 import React , { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+
 const ReactMarkdown = require('react-markdown');
 
 class CourseDetail extends Component {
@@ -16,8 +17,15 @@ class CourseDetail extends Component {
                     this.setState({
                         course: course.data
                     })
+                    if(!course){
+                        
+                    }
+                    console.log(course)
                 }).catch((e) => {
-                    console.log(e)
+                    
+                    if(e){
+                        this.props.history.push('/notfound')
+                    }
             })
         }
     }
@@ -47,6 +55,7 @@ class CourseDetail extends Component {
         } //if the data hasn't been async into state yet, return null to prevent error throwing
         const id = this.props.match.params.id;
         const context = this.props.context;
+      
         return(
         
         <div className="bounds course--detail">

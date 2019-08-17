@@ -10,7 +10,8 @@ class UserSignUp extends Component {
       emailAddress: "",
       password: "",
       confirmPassword: "",
-      errors:""
+      errors:"",
+      errorsPassword:""
     }
 
     handleChange = (event) => {
@@ -20,6 +21,20 @@ class UserSignUp extends Component {
       this.setState({
           [name]: value
       })
+      
+    }
+    //check if passowrds match or not
+    handleConfirmPassword = (event) => {
+      if (event.target.value !== this.state.password){
+        this.setState({
+          errorsPassword:"Passwords do not match!"
+        })
+      }else{
+        this.setState({
+          errorsPassword:""
+        })
+      }
+      this.setState({confirmPassword: event.target.value})
     }
 
     handleCancel = () => {
@@ -34,10 +49,18 @@ class UserSignUp extends Component {
         emailAddress,
         password
       } = this.state;
-
+      
       axios.post('http://localhost:5000/api/users', {firstName, lastName, emailAddress,password})
         .then(() => {
-          console.log('user created success')
+          const context = this.props.context;
+          context.actions.signIn(
+              this.state.emailAddress, 
+              this.state.password
+          ).then((user) => {
+            if(user.status === 200){
+              this.props.history.push('/courses/create');
+            }
+          })
         }).catch((e) => {
           this.setState({
             errors: e.response.data.errors //catch the err in the response object
@@ -64,6 +87,18 @@ class UserSignUp extends Component {
                           </div>
                       </div>
                   ) :  null                          
+              }
+              {
+                this.state.errorsPassword ? (
+                  <div>
+                      <h2 className="validation--errors--label">Validation errors</h2>
+                          <div className="validation-errors">
+                              <ul>
+                                 <li>{this.state.errorsPassword}</li>
+                              </ul>
+                          </div>
+                  </div>
+                ) : null
               }
               <h1>Sign Up</h1>
               <div>
@@ -119,7 +154,7 @@ class UserSignUp extends Component {
                         type="password" 
                         className="" 
                         placeholder="Confirm Password"
-                        onChange= {this.handleChange}
+                        onChange= {this.handleConfirmPassword}
                         value={this.state.confirmPassword}
                       />
                     </div>
