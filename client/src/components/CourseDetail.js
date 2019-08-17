@@ -6,7 +6,8 @@ const ReactMarkdown = require('react-markdown');
 
 class CourseDetail extends Component {
     state = {
-        course: []
+        course: [],
+        errors:""
     }
 
     componentDidMount(){
@@ -20,9 +21,8 @@ class CourseDetail extends Component {
                     if(!course){
                         
                     }
-                    console.log(course)
-                }).catch((e) => {
                     
+                }).catch((e) => {
                     if(e){
                         this.props.history.push('/notfound')
                     }
@@ -46,7 +46,13 @@ class CourseDetail extends Component {
                 this.props.history.push('/')
             })
             .catch((e) => {
-                console.log(e);
+                this.setState({
+                    errors: e.response.data.errors //catch the err in the response object
+                })
+                //if unaut, then forbidden to access the resources
+                if(e.response.status === 401){
+                    this.props.history.push('/forbidden')
+                }
         })
     }
     render(){
@@ -85,7 +91,8 @@ class CourseDetail extends Component {
                          </div>
                          </div>
                      </div>
-                ): null}
+                ): null
+            }
                
                     <h4 className="course--label">Course</h4>
                     <h3 className="course--title">{this.state.course.title}</h3>

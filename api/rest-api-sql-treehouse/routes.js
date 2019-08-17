@@ -2,10 +2,22 @@
 const { check, validationResult } = require('express-validator/check');
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const passwordValidator = require('password-validator');
 const router = express.Router();
 const db = require('./db');
 const {Course, User} = db.models;
 const auth = require('basic-auth');
+
+const schema = new passwordValidator();
+schema
+    .is().min(8)                                    // Minimum length 8
+    .is().max(100)                                  // Maximum length 100
+    .has().uppercase()                              // Must have uppercase letters
+    .has().lowercase()                              // Must have lowercase letters
+    .has().digits()                                 // Must have digits
+    .symbols()                                 
+    .has().not().spaces()                           // Should not have spaces
+ 
 //auth middleware 
 const authUser = (req, res, next) => {
     const credentials = auth(req);
@@ -74,13 +86,26 @@ router.post('/users',[
         .withMessage('Please provide a value for "password"')
 ],(req, res, next) => {
     const errors = validationResult(req);
+    const passwordValidationResult = schema.validate(req.body.password);
+    
     if(!errors.isEmpty()){
         // Use the Array `map()` method to get a list of error messages.
-         const errorMessages = errors.array().map(error => error.msg);
+        const errorMessages = errors.array().map(error => error.msg);
 
         // Return the validation errors to the client.
         res.status(400).json({ errors: errorMessages });
-    }else {
+    }else if(
+        (req.body.password !== req.body.confirmPassword)){
+        res.status(400).json({errors: [
+            "Passwords do not match!"
+        ]})
+    }else if(!passwordValidationResult){
+        res.status(400).json({errors: [
+            "Password Minimum length 8",
+            "Password Maximum length 100",
+            "Password Must have uppercase and lowercase letters, digits, special symbols and no spaces"
+        ]})
+    } else {
         User.findOne({
             where: {
                 emailAddress: req.body.emailAddress
@@ -92,7 +117,7 @@ router.post('/users',[
                 res.status(400).json({errors: "password can't be empty string!"})
             }else{
                 // async way to hash the passwd
-                bcrypt.genSalt(5,(err, salt) => {
+                bcrypt.genSalt(10,(err, salt) => {
                     bcrypt.hash(req.body.password, salt, (err, hash) => {
                         User.create({
                             firstName: req.body.firstName,
@@ -161,6 +186,7 @@ router.post('/courses', authUser, [
         }).then((course) => {
             res.setHeader('Location', `/courses/${course.id}`);
             res.status(201).end();
+            
         }).catch((err) => {
             next(err);
         })
@@ -300,7 +326,7 @@ router.delete('/courses/:id', authUser, (req, res, next) => {
             res.status(204).end();
         }
         else{
-            res.status(403).end()
+            res.status(401).end()
         }
     }).catch((err) => {
         next(err);

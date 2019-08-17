@@ -47,10 +47,11 @@ class UserSignUp extends Component {
         firstName,
         lastName,
         emailAddress,
-        password
+        password,
+        confirmPassword
       } = this.state;
       
-      axios.post('http://localhost:5000/api/users', {firstName, lastName, emailAddress,password})
+      axios.post('http://localhost:5000/api/users', {firstName, lastName, emailAddress,password, confirmPassword})
         .then(() => {
           const context = this.props.context;
           context.actions.signIn(
@@ -62,6 +63,7 @@ class UserSignUp extends Component {
             }
           })
         }).catch((e) => {
+          console.log(e.response)
           this.setState({
             errors: e.response.data.errors //catch the err in the response object
           })

@@ -16,7 +16,9 @@ class Course extends Component {
                     courses: courses.data
                 })
             }).catch((e)=>{
-                console.log(e)
+            if(e){
+                this.props.history.push('/error');
+            }              
         })
     }
     
