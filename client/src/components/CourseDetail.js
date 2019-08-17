@@ -11,29 +11,27 @@ class CourseDetail extends Component {
     }
 
     componentDidMount(){
-        const id = this.props.match.params.id;
+        //when the app component start to render, call the api to get one course
+        const id = this.props.match.params.id; 
         if(id !== 'create'){
             axios.get(`http://localhost:5000/api/courses/${id}`)
                 .then((course) => {
+                    //set the course data to the state
                     this.setState({
                         course: course.data
                     })
-                    if(!course){
-                        
-                    }
-                    
                 }).catch((e) => {
                     if(e){
-                        this.props.history.push('/notfound')
+                        this.props.history.push('/notfound') //if the resources not available, redirect to /notfound
                     }
             })
         }
     }
 
     deleteCourse = () => {
-        const id = this.props.match.params.id;
-        const context = this.props.context;
-
+        const id = this.props.match.params.id; //get the params id
+        const context = this.props.context; //get the context prop 
+        //create a axios instance with configured values
         const axiosInstance = axios.create({
             baseURL:`http://localhost:5000`,
             headers: {
@@ -41,9 +39,10 @@ class CourseDetail extends Component {
                 "Content-Type": "application/json"
             }
         });
+        //delete the course with the auth user info
         axiosInstance.delete(`/api/courses/${id}`)
             .then(() => {
-                this.props.history.push('/')
+                this.props.history.push('/') //redirect to default
             })
             .catch((e) => {
                 this.setState({
@@ -51,7 +50,7 @@ class CourseDetail extends Component {
                 })
                 //if unaut, then forbidden to access the resources
                 if(e.response.status === 401){
-                    this.props.history.push('/forbidden')
+                    this.props.history.push('/forbidden') //if 401, then redirect to forbidden
                 }
         })
     }
@@ -59,8 +58,8 @@ class CourseDetail extends Component {
         if (!this.state.course.User) {
             return null;
         } //if the data hasn't been async into state yet, return null to prevent error throwing
-        const id = this.props.match.params.id;
-        const context = this.props.context;
+        const id = this.props.match.params.id; //get the pramas id
+        const context = this.props.context; //get the context props
       
         return(
         

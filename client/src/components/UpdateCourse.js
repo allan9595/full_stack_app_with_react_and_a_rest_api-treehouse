@@ -10,7 +10,7 @@ class UpdateCourse extends Component {
     }
 
     componentDidMount(){
-        
+        //get all the current course info and set them into state
         const id = this.props.match.params.id;
         if(id !== 'create'){
             axios.get(`http://localhost:5000/api/courses/${id}`)
@@ -29,7 +29,7 @@ class UpdateCourse extends Component {
             })
         }
     }
-    //submit the form to create a course
+    //submit the form to update a course
     handleSubmit = (e) => {
         e.preventDefault();
         const id = this.props.match.params.id;
@@ -64,7 +64,7 @@ class UpdateCourse extends Component {
                 }
             })
     }
-
+    //set the value fields into state
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -73,7 +73,7 @@ class UpdateCourse extends Component {
             [name]: value
         })
     }
-
+    //when click cancel, redirect to default
     handleCancel = () => {
         this.props.history.push('/')
     }

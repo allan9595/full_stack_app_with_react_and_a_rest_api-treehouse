@@ -10,6 +10,7 @@ class Course extends Component {
     }
 
     componentDidMount(){
+        //call the api to get the list of courses when rendering
         axios.get('http://localhost:5000/api/courses')
             .then((courses) => {
                 this.setState({
@@ -17,12 +18,13 @@ class Course extends Component {
                 })
             }).catch((e)=>{
             if(e){
-                this.props.history.push('/error');
+                this.props.history.push('/error'); //redirect to error when error not handled
             }              
         })
     }
     
     render(){
+        //rendering courses array with map func
         const course = this.state.courses.map((course,index) => {
             return (
                 <div key={course.id} className="bounds">

@@ -702,7 +702,7 @@ input:focus {
 }
 /* line 522, ../sass/global.sass */
 .button:not(.button-secondary):hover {
-  background: #63537d;
+  background: #00f8fc;
 }
 
 /* line 525, ../sass/global.sass */
@@ -718,8 +718,8 @@ input:focus {
 }
 /* line 530, ../sass/global.sass */
 .button-secondary:hover {
-  color: #63537d;
-  box-shadow: 0 0 0 2px #63537d inset;
+  color: #00f8fc;
+  box-shadow: 0 0 0 2px #00f8fc inset;
 }
 
 /* adds additional padding to the bottom of an element */
@@ -740,11 +740,11 @@ input:focus {
 
 /* styles the validation errors */
 .validation--errors--label {
-  color: #7c689b;
+  color: #c44d68;
   font-size: 28px;
 }
 .validation-errors ul {
-  color: #7c689b;
+  color: #c44d68;
   padding: 15px 0 40px 10px;
 }
 

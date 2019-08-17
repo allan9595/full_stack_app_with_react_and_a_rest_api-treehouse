@@ -36,7 +36,7 @@ class CreateCourse extends Component {
             })
 
     }
-
+    //set the value fields to state
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -45,7 +45,7 @@ class CreateCourse extends Component {
             [name]: value
         })
     }
-
+    //redierct to default when click cancel
     handleCancel = () => {
         this.props.history.push('/')
     }

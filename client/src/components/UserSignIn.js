@@ -7,7 +7,7 @@ class UserSignIn extends Component {
         password: "",
         errors: ""
     }
-
+    //set the value fields into state
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -21,11 +21,13 @@ class UserSignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const context = this.props.context;
+        //get the from from the state
         const { from } = this.props.location.state || { from: { pathname: '/courses/create' } };
         context.actions.signIn(
             this.state.emailAddress, 
             this.state.password
         ).then((user) => {
+            //push to create page or push to the page before sign in if there is one
             if(user.status === 200){
                 this.props.history.push(from);
             }
@@ -36,7 +38,7 @@ class UserSignIn extends Component {
         });
 
     }
-
+    //redirect to default when cancel
     handleCancel = (e) => {
         e.preventDefault();
         this.props.history.push('/');

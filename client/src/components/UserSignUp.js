@@ -13,7 +13,7 @@ class UserSignUp extends Component {
       errors:"",
       errorsPassword:""
     }
-
+    //set the values into state
     handleChange = (event) => {
       const target = event.target;
       const value = target.value;
@@ -23,7 +23,7 @@ class UserSignUp extends Component {
       })
       
     }
-    //check if passowrds match or not
+    //check if passowrds match or not, this is on the client side give a user better experience
     handleConfirmPassword = (event) => {
       if (event.target.value !== this.state.password){
         this.setState({
@@ -36,11 +36,11 @@ class UserSignUp extends Component {
       }
       this.setState({confirmPassword: event.target.value})
     }
-
+    //when cancel, push to the defaulr
     handleCancel = () => {
       this.props.history.push('/');
     }
-
+    //submit the user body to server
     handleSubmit = (e) => {
       e.preventDefault();
       const {
@@ -63,7 +63,6 @@ class UserSignUp extends Component {
             }
           })
         }).catch((e) => {
-          console.log(e.response)
           this.setState({
             errors: e.response.data.errors //catch the err in the response object
           })
