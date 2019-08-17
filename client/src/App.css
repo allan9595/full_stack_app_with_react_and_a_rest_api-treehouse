@@ -208,7 +208,7 @@ body {
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #57496e;
+  background: #c44d68;
   padding: 20px 0;
   margin-bottom: 30px;
 }
@@ -340,7 +340,7 @@ p {
 
 /* line 102, ../sass/global.sass */
 .course--module {
-  background: #7c689b;
+  background: #c44d68;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 30px;
@@ -679,7 +679,7 @@ input:focus {
 
 /* line 507, ../sass/global.sass */
 .button {
-  background: #7c689b;
+  background: #c44d68;
   color: #fff;
   font-family: "Work Sans", sans-serif;
   font-size: 18px;
@@ -707,9 +707,9 @@ input:focus {
 
 /* line 525, ../sass/global.sass */
 .button-secondary {
-  color: #7c689b;
+  color: #c44d68;
   background: none;
-  box-shadow: 0 0 0 2px #7c689b inset;
+  box-shadow: 0 0 0 2px #c44d68 inset;
   -webkit-transition: box-shadow 0.2s, color 0.2s;
   -moz-transition: box-shadow 0.2s, color 0.2s;
   -ms-transition: box-shadow 0.2s, color 0.2s;
