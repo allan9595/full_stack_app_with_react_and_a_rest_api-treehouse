@@ -40,7 +40,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 #### TODO Next
 - [ ] Add Search function for the list of course.
-- [ ] Add a file upload option allow user allow the course syllable .
+- [ ] Add a file upload option allow user to upload the course syllable .
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
