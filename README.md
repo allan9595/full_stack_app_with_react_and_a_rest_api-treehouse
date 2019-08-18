@@ -1,7 +1,7 @@
 # Courses Mangement System
 **Courses Mangement System** 
 
-This app is a full stack Course Mangment system that allows users to create, update, delete, view courses. When create a course, markdown language is supported. 
+This app is a full stack Course Mangement system that allows users to create, update, delete, view courses. When create a course, markdown language is supported. 
 
 Mark Down feature proudly powered by [react-markdown](https://www.npmjs.com/package/react-markdown)
 
