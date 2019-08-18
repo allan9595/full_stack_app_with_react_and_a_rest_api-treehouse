@@ -20,7 +20,7 @@ Go to the localhost:3000
 
 ## Video Walkthrough
 
-<img src='https://github.com/allan9595/full_stack_app_with_react_and_a_rest_api-treehouse/blob/master/course-mangment-system' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/allan9595/full_stack_app_with_react_and_a_rest_api-treehouse/blob/master/course-mangment-system.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
