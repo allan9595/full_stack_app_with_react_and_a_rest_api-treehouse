@@ -10,13 +10,22 @@ You can visit the live version at [https://course-mangment-system.herokuapp.com]
 
 ## How to run on the local machine
 
-git clone https://github.com/allan9595/sql_library_manager-treehouse.git
+git clone https://github.com/allan9595/full_stack_app_with_react_and_a_rest_api-treehouse.git
+
+cd client
 
 npm install 
 
 npm run start
 
 Go to the localhost:3000
+
+cd /api/rest-api-sql-treehouse 
+
+npm install 
+
+npm run start
+
 
 ## Video Walkthrough
 
