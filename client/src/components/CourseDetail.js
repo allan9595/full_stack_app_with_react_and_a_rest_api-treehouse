@@ -12,6 +12,7 @@ class CourseDetail extends Component {
 
     componentDidMount(){
         //when the app component start to render, call the api to get one course
+        
         const id = this.props.match.params.id; 
         if(id !== 'create'){
             axios.get(`http://localhost:5000/api/courses/${id}`)
@@ -26,6 +27,7 @@ class CourseDetail extends Component {
                     }
             })
         }
+        
     }
 
     deleteCourse = () => {
@@ -83,16 +85,16 @@ class CourseDetail extends Component {
                                  >
                                      Delete Course
                                  </button>
-                                 <Link to={`/`} className="button button-secondary a1" >
-                                     Return to List
-                                 </Link>
                              </span>
                          </div>
                          </div>
                      </div>
                 ): null
+                
             }
-               
+               <Link to={`/`} className="button button-secondary a1" >
+                    Return to List
+                </Link>
                     <h4 className="course--label">Course</h4>
                     <h3 className="course--title">{this.state.course.title}</h3>
                     <p>By {this.state.course.User.firstName} {this.state.course.User.lastName}</p>

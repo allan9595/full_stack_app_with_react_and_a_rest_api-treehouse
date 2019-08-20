@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Header = ({context}) => {
+const Header = ({context , ...props}) => {
     return(
         <div className="header">
             <div className="bounds">
@@ -28,12 +28,21 @@ const Header = ({context}) => {
                         </nav>
                     ) : (
                         <nav>
-                            <Link to="/signin" className="signin">
+                            <Link to={{
+                                pathname:"/signin",
+                                state: {from: props.location},
+                                className: "signin"
+                            }}
+                             >
                                 <span className="a1">
                                     Sign in
                                 </span>
                             </Link>
-                            <Link to="/signup" className="signin">
+                            <Link to={{
+                                pathname:"/signup",
+                                state: {from: props.location},
+                                className: "signup"
+                            }}>
                                 <span className="a1">   
                                 Sign Up
                                 </span>

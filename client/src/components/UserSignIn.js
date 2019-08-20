@@ -23,13 +23,16 @@ class UserSignIn extends Component {
         const context = this.props.context;
         //get the from from the state
         const { from } = this.props.location.state || { from: { pathname: '/courses/create' } };
+        console.log(this.props.location.state)
         context.actions.signIn(
             this.state.emailAddress, 
             this.state.password
         ).then((user) => {
             //push to create page or push to the page before sign in if there is one
             if(user.status === 200){
-                this.props.history.push(from);
+                //console.log(this.props.history.goBack())
+                //this.props.history.goBack()
+                this.props.history.push(from)
             }
         }).catch((e) => {
             this.setState({
@@ -45,6 +48,10 @@ class UserSignIn extends Component {
     }
 
     render() {
+        const context = this.props.context;
+        if(context.authUser){
+            this.props.history.push('/');
+        }
         return (
             <div>
                 <hr />

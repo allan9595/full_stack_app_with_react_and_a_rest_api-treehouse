@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 class UpdateCourse extends Component {
     state = {
+        id:"",
         title: "",
         description: "",
         estimatedTime: "",
@@ -12,23 +13,31 @@ class UpdateCourse extends Component {
     componentDidMount(){
         //get all the current course info and set them into state
         const id = this.props.match.params.id;
+
         if(id !== 'create'){
             axios.get(`http://localhost:5000/api/courses/${id}`)
-                .then((course) => {
+                .then((course) => {console.log(course)
                     this.setState({
+                        id:course.data.User.id,
                         title: course.data.title,
                         description:course.data.description,
                         estimatedTime:course.data.estimatedTime,
                         materialsNeeded:course.data.materialsNeeded
                     })
+                }).then(() => {
+                    //if the user does not own the course, redirect to forbidden
+                    const context = this.props.context;
+                    if((context.authUser && (context.authUser.id !== this.state.id))){
+                        this.props.history.push('/forbidden')
+                    }
                 }).catch((e) => {
-                    
                     if(e){
                         this.props.history.push('/notfound') //if requested course not exist, redirect to notfound
                     }
             })
         }
     }
+
     //submit the form to update a course
     handleSubmit = (e) => {
         e.preventDefault();
@@ -59,7 +68,7 @@ class UpdateCourse extends Component {
                     errors: e.response.data.errors //catch the err in the response object
                 })
                 //if unaut, then forbidden to access the resources
-                if(e.response.status === 401){
+                if(e.response.status === 403){
                     this.props.history.push('/forbidden')
                 }
             })
@@ -78,6 +87,7 @@ class UpdateCourse extends Component {
         this.props.history.push('/')
     }
     render() {
+        
         return (
             <div>
                 <div>

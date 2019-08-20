@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Course from './components/Courses'
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
@@ -28,7 +28,8 @@ const App = () => {
   
   return (
     <Router>
-      <HeaderContext />
+      <Route render={(props) => <HeaderContext {...props}/>} />
+      
       <Switch>
         <Route exact path="/" component={Course} />
         <Route exact path="/signup" component={UserSignUpWithContext} />

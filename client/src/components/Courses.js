@@ -27,8 +27,8 @@ class Course extends Component {
         //rendering courses array with map func
         const course = this.state.courses.map((course,index) => {
             return (
-                <div key={course.id} className="bounds">
-                    <div className="grid-33">
+                //<div key={course.id} className="bounds">
+                    <div key={course.id} className="grid-33">
                     <NavLink 
                         to={`/courses/${course.id}`}
                         className="course--module course--link"
@@ -37,7 +37,7 @@ class Course extends Component {
                         <h3 className="course--title">{course.title}</h3>
                     </NavLink>
                     </div>
-                </div>
+                //</div>
             )
         })
 
@@ -58,7 +58,7 @@ class Course extends Component {
             </div>
 
         return(
-            <div>
+            <div className="bounds">
                 {course}
                 {courseCreate}
             </div>    
