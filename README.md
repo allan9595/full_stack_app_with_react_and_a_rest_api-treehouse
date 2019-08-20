@@ -26,6 +26,10 @@ npm install
 
 npm run start
 
+if you want to init the db, go to the /api/rest-api-sql-treehouse 
+
+npm run seed
+
 
 ## Video Walkthrough
 
