@@ -7,6 +7,8 @@ Mark Down feature proudly powered by [react-markdown](https://www.npmjs.com/pack
 
 You can visit the live version at [https://course-mangment-system.herokuapp.com](https://course-mangment-system.herokuapp.com/)
 
+Note: The above live version will experience few seconds delay since it is on heroku free dyno. Thank you for your patience!
+
 
 ## How to run on the local machine
 
